@@ -66,9 +66,33 @@ Le lab, il vous faut deux machine :
 
 > Rappel : tout doit être fait *via* la ligne de commandes. Faites-vous du bien, et utilisez Powershell plutôt que l'antique cmd sous Windows svp.
 
+```
+(fait avec EVEILLARD et BATGUEZERE)
+Les deux IPs choisies, en précisant le masque: Ip de ma machine -> 192.168.0.2/26 Ip de la seconde machine -> 192.168.0.1/26
+
+L'adresse de réseau -> 192.168.0.0
+
+L'adresse de broadcast -> 192.168.0.63
+```
+
 🌞 **Prouvez que la connexion est fonctionnelle entre les deux machines**
 
 - un `ping` suffit !
+
+```
+PS C:\Windows\system32> ping 192.168.0.1
+
+Envoi d’une requête 'Ping'  192.168.0.1 avec 32 octets de données :
+Réponse de 192.168.0.1 : octets=32 temps=2 ms TTL=128
+Réponse de 192.168.0.1 : octets=32 temps=1 ms TTL=128
+Réponse de 192.168.0.1 : octets=32 temps=1 ms TTL=128
+Réponse de 192.168.0.1 : octets=32 temps=1 ms TTL=128
+
+Statistiques Ping pour 192.168.0.1:
+    Paquets : envoyés = 4, reçus = 4, perdus = 0 (perte 0%),
+Durée approximative des boucles en millisecondes :
+    Minimum = 1ms, Maximum = 2ms, Moyenne = 1ms
+```
 
 🌞 **Wireshark it**
 
@@ -82,6 +106,8 @@ Le lab, il vous faut deux machine :
 > Vous trouverez sur [la page Wikipedia de ICMP](https://en.wikipedia.org/wiki/Internet_Control_Message_Protocol) un tableau qui répertorie tous les types ICMP et leur utilité
 
 🦈 **PCAP qui contient les paquets ICMP qui vous ont permis d'identifier les types ICMP**
+
+![fichierwire](wiresharktp2.pcapng)
 
 # II. ARP my bro
 
@@ -98,20 +124,48 @@ ARP permet, pour rappel, de résoudre la situation suivante :
 🌞 **Check the ARP table**
 
 - utilisez une commande pour afficher votre table ARP
+
+```
+PS C:\Windows\system32> arp -a
+```
+
 - déterminez la MAC de votre binome depuis votre table ARP
+
+```
+192.168.0.1           10-82-86-0b-15-00
+```
+
 - déterminez la MAC de la *gateway* de votre réseau 
-  - celle de votre réseau physique, WiFi, genre YNOV, car il n'y en a pas dans votre ptit LAN
-  - c'est juste pour vous faire manipuler un peu encore :)
+```
+10.33.19.254          00-c0-e7-e0-04-4e
+```
 
 > Il peut être utile de ré-effectuer des `ping` avant d'afficher la table ARP. En effet : les infos stockées dans la table ARP ne sont stockées que temporairement. Ce laps de temps est de l'ordre de ~60 secondes sur la plupart de nos machines.
 
 🌞 **Manipuler la table ARP**
 
 - utilisez une commande pour vider votre table ARP
+```
+PS C:\Windows\system32> arp -d
+```
 - prouvez que ça fonctionne en l'affichant et en constatant les changements
 - ré-effectuez des pings, et constatez la ré-apparition des données dans la table ARP
 
 > Les échanges ARP sont effectuées automatiquement par votre machine lorsqu'elle essaie de joindre une machine sur le même LAN qu'elle. Si la MAC du destinataire n'est pas déjà dans la table ARP, alors un échange ARP sera déclenché.
+
+
+
+```
+Interface : 192.168.0.2 --- 0x7
+  Adresse Internet      Adresse physique      Type
+  192.168.0.1           10-82-86-0b-15-00     dynamique
+  192.168.0.63          ff-ff-ff-ff-ff-ff     statique
+  224.0.0.22            01-00-5e-00-00-16     statique
+  224.0.0.251           01-00-5e-00-00-fb     statique
+  224.0.0.252           01-00-5e-00-00-fc     statique
+  239.255.255.250       01-00-5e-7f-ff-fa     statique
+  255.255.255.255       ff-ff-ff-ff-ff-ff     statique
+```
 
 🌞 **Wireshark it**
 
@@ -123,6 +177,8 @@ ARP permet, pour rappel, de résoudre la situation suivante :
 🦈 **PCAP qui contient les trames ARP**
 
 > L'échange ARP est constitué de deux trames : un ARP broadcast et un ARP reply.
+
+![sharkbroadcast](arpbroadcast.pcapng)
 
 # II.5 Interlude hackerzz
 
