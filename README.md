@@ -235,7 +235,7 @@ TCP et UDP ce sont les deux protocoles qui utilisent des ports. Si on veut accé
 
 ```
 Ip Youtube = 91.68.245.143
-Port = 65314
+Port = 443
 ```
 
 🦈 **PCAP qui contient un extrait de l'échange qui vous a permis d'identifier les infos**
