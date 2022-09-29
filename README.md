@@ -266,6 +266,8 @@ Adresse d'un serveur DNS joignable depuis ce réseau = 8.8.8.8
 
 🦈 **PCAP qui contient l'échange DORA**
 
+![dora](DHCP.pcapng)
+
 > **Soucis** : l'échange DHCP ne se produit qu'à la première connexion. **Pour forcer un échange DHCP**, ça dépend de votre OS. Sur **GNU/Linux**, avec `dhclient` ça se fait bien. Sur **Windows**, le plus simple reste de définir une IP statique pourrie sur la carte réseau, se déconnecter du réseau, remettre en DHCP, se reconnecter au réseau. Sur **MacOS**, je connais peu mais Internet dit qu'c'est po si compliqué, appelez moi si besoin.
 
 # IV. Avant-goût TCP et UDP
@@ -295,3 +297,4 @@ Port = 443
 ```
 
 🦈 **PCAP qui contient un extrait de l'échange qui vous a permis d'identifier les infos**
+![Youtube](Youtube.pcapng)
