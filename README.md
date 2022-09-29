@@ -188,16 +188,16 @@ L'échange DHCP consiste en 4 trames : DORA, que je vous laisse google vous-mêm
 - identifiez dans ces 4 trames les informations **1**, **2** et **3** dont on a parlé juste au dessus
 
 ```
-1ere trame: 
+1ere trame (Discover): 
   source = 84-5C-F3-8C-25-94 (mon adresse mac)
   destination = FF:FF:FF:FF:FF:FF (broadcast)
-2eme trame: 
+2eme trame (Offer): 
   source = 00:c0:e7:e0:04:4e (MAC de la passerelle du réseau)
   destination = 84-5C-F3-8C-25-94
-3eme trame: 
+3eme trame (Request): 
   source = 84-5C-F3-8C-25-94
   destination = 00:c0:e7:e0:04:4e
-4eme trame: 
+4eme trame (Acknowledge): 
   source = 00:c0:e7:e0:04:4e
   destination = 84-5C-F3-8C-25-94
 ```
